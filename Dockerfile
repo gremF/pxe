@@ -17,8 +17,9 @@ WORKDIR /app
 COPY --from=init /iventoy/iventoy /app
 RUN chmod +x /app/iventoy.sh
 
-# Copy iventoy.dat to temporary folder for first run
-COPY --from=init /iventoy/iventoy/data/iventoy.dat /app/data_default/iventoy.dat
+# Copy iventoy.dat and mac.db to temporary folder for first run
+COPY --from=init /iventoy/iventoy/data/iventoy.dat /app/data_tmp/iventoy.dat
+COPY --from=init /iventoy/iventoy/data/mac.db /app/data_tmp/mac.db
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
