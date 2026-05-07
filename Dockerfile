@@ -4,10 +4,13 @@ ARG IVENTOY
 WORKDIR /iventoy
 RUN echo "Downloading version: ${IVENTOY}" && \
     [ -z "${IVENTOY}" ] && echo "Error: IVENTOY is not set" && exit 1 || true && \
-    wget https://github.com/ventoy/PXE/releases/download/v${IVENTOY}/iventoy-${IVENTOY}-linux-free.tar.gz && \
+    # 1. Исправлен URL: добавлено -x86_64
+    wget https://github.com/ventoy/PXE/releases/download/v${IVENTOY}/iventoy-${IVENTOY}-linux-x86_64-free.tar.gz && \
     tar -xvf *.tar.gz && \
-    rm -rf iventoy-${IVENTOY}-linux.tar.gz && \
-    mv iventoy-${IVENTOY} iventoy
+    # 2. Исправлено имя удаляемого архива
+    rm -f iventoy-${IVENTOY}-linux-x86_64-free.tar.gz && \
+    # 3. Используем wildcard, чтобы переименовать папку независимо от того, есть ли в её имени x86_64
+    mv iventoy-* iventoy
 
 # Build image
 FROM ubuntu:24.04
