@@ -13,7 +13,7 @@ RUN echo "Downloading version: ${IVENTOY}" && \
     mv iventoy-* iventoy
 
 # Build image
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 ENV AUTO_START_PXE=true
 WORKDIR /app
 
